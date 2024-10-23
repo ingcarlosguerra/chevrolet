@@ -4,8 +4,8 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 const CarModels = [
-  "Modelo A",
-  "Modelo B",
+  "SAIL",
+  "OPTRA",
   "Modelo C",
   "Modelo D"
 ];
@@ -29,20 +29,33 @@ const RegistrationForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Verifica que todos los campos estén completos
-    const allFieldsFilled = Object.values(formData).every(field => field !== '');
-
-    if (allFieldsFilled) {
-      console.log(formData);
-      // Redirige a la vista de despedida si todos los campos están completos
-      document.getElementById('redirectLink').click();
-    } else {
-      alert('Por favor completa todos los campos.');
+  
+    const { nombre, apellido, email, telefono, direccion, modeloCarro, asesorComercial } = formData;
+  
+    if (!nombre || !apellido || !email || !telefono || !modeloCarro || !asesorComercial) {
+      alert("Completar todos los espacios");
+      return;
+    }
+    
+    try {
+      const res = await fetch("http://localhost:3000/api/topics", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(formData) // Aquí enviamos todo el formData
+      });
+  
+      if (res.ok) {
+        document.getElementById('redirectLink').click();
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -50,29 +63,72 @@ const RegistrationForm = () => {
         <h2 className="text-2xl font-bold mb-4">Registro de Cliente</h2>
 
         <label className="block mb-2">Nombre:</label>
-        <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} className="mb-4 p-2 border rounded w-full" />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="nombre"
+          value={formData.nombre}
+          className="mb-4 p-2 border rounded w-full"
+        />
 
         <label className="block mb-2">Apellido:</label>
-        <input type="text" name="apellido" value={formData.apellido} onChange={handleChange} className="mb-4 p-2 border rounded w-full" />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="apellido"
+          value={formData.apellido}
+          className="mb-4 p-2 border rounded w-full"
+        />
 
         <label className="block mb-2">Email:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} className="mb-4 p-2 border rounded w-full" />
+        <input
+          onChange={handleChange}
+          type="email"
+          name="email"
+          value={formData.email}
+          className="mb-4 p-2 border rounded w-full"
+        />
 
         <label className="block mb-2">Teléfono:</label>
-        <input type="tel" name="telefono" value={formData.telefono} onChange={handleChange} className="mb-4 p-2 border rounded w-full" />
+        <input
+          onChange={handleChange}
+          type="tel"
+          name="telefono"
+          value={formData.telefono}
+          className="mb-4 p-2 border rounded w-full"
+        />
 
         <label className="block mb-2">Dirección:</label>
-        <input type="text" name="direccion" value={formData.direccion} onChange={handleChange} className="mb-4 p-2 border rounded w-full" />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="direccion"
+          value={formData.direccion}
+          className="mb-4 p-2 border rounded w-full"
+        />
 
         <label className="block mb-2">Modelo de Carro:</label>
-        <select name="modeloCarro" value={formData.modeloCarro} onChange={handleChange} className="mb-4 p-2 border rounded w-full">
+        <select
+          onChange={handleChange}
+          name="modeloCarro"
+          value={formData.modeloCarro}
+          className="mb-4 p-2 border rounded w-full"
+        >
           {CarModels.map((modelo, index) => (
-            <option key={index} value={modelo}>{modelo}</option>
+            <option key={index} value={modelo}>
+              {modelo}
+            </option>
           ))}
         </select>
 
         <label className="block mb-2">Asesor Comercial:</label>
-        <input type="text" name="asesorComercial" value={formData.asesorComercial} onChange={handleChange} className="mb-4 p-2 border rounded w-full" />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="asesorComercial"
+          value={formData.asesorComercial}
+          className="mb-4 p-2 border rounded w-full"
+        />
 
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">Registrar</button>
         <Link href="/views/farewell" id="redirectLink"></Link>
