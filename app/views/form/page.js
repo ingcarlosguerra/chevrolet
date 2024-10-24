@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-
+import { BASE_API_URL } from '@/app/utils/contact';
 const CarModels = [
   "SAIL",
   "OPTRA",
@@ -40,7 +40,7 @@ const RegistrationForm = () => {
     }
     
     try {
-      const res = await fetch("https://chevrolet-feria-automovil.vercel.app/api/topics", {
+      const res = await fetch(`${BASE_API_URL}/api/topics`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

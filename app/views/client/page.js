@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-
+import { BASE_API_URL } from '@/app/utils/contact';
 const getUsers = async (asesorComercial, fecha) => {
   try {
-    let url = 'https://chevrolet-feria-automovil.vercel.app/api/topics';
+    let url = `${BASE_API_URL}/api/topics`;
     
     if (asesorComercial && fecha) {
       url += `?asesorComercial=${asesorComercial}&fecha=${fecha}`;

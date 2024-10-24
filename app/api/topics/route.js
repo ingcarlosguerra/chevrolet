@@ -9,7 +9,7 @@ export async function POST(request) {
     return NextResponse.json({message: "Registro creado"}, {status: 201});
 }
 
-// Función GET que maneja tanto búsquedas específicas como la consulta de todos los datos
+
 export async function GET(request) {
     await connectMongoDB();
     const { searchParams } = new URL(request.url);
@@ -19,12 +19,12 @@ export async function GET(request) {
 
     let query = {};
 
-    // Si se proporciona asesorComercial, añadimos el filtro
+
     if (asesorComercial) {
         query.asesorComercial = asesorComercial;
     }
 
-    // Si se proporciona fecha, añadimos el filtro por rango de fecha
+
     if (fecha) {
         const startOfDay = new Date(fecha);
         startOfDay.setUTCHours(0, 0, 0, 0); // Inicio del día en UTC
