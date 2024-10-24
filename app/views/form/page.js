@@ -45,7 +45,7 @@ const RegistrationForm = () => {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(formData) // Aquí enviamos todo el formData
+        body: JSON.stringify(formData) 
       });
   
       if (res.ok) {
