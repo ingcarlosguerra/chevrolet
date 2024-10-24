@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 const getUsers = async (asesorComercial, fecha) => {
   try {
-    let url = 'http://localhost:3000/api/topics';
+    let url = 'https://chevrolet-feria-automovil.vercel.app/api/topics';
     
     if (asesorComercial && fecha) {
       url += `?asesorComercial=${asesorComercial}&fecha=${fecha}`;
